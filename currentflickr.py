@@ -4,7 +4,30 @@ from flickrapi import FlickrAPI, shorturl
 from appscript import app, its, k
 import re
 
+def currentFlickrID():
+  '''Return the ID for the Flickr image currently showing in the browser.
+  
+  The function works through Apple Events and supports only the Safari and
+  Chrome browsers. It will generate an IndexError if the frontmost tab of
+  the browser isn't showing a Flickr image.'''
+  
+  # The regex for extracting user and photo info.
+  infoRE = r'flickr\.com/photos/(.*)/(\d+)/?'
 
+  # Get the URL of the current page in either Safari or Chrome.
+  numSafari = app('System Events').processes[its.name == 'Safari'].count(each=k.item)
+  numChrome = app('System Events').processes[its.name == 'Google Chrome'].count(each=k.item)
+
+  if numSafari > 0:
+    thisURL = app('Safari').documents[0].URL.get()
+  elif numChrome > 0:
+    frontIndex = app('Google Chrome').windows[1].active_tab_index.get()
+    thisURL = app('Google Chrome').windows[1].tabs[frontIndex].URL.get()
+
+  # Extract the user and photo info from the URL.
+  info = re.findall(infoRE, thisURL)
+  return info[0][1]
+  
 
 def currentFlickrURL(kind):
   '''Return a URL for the Flickr image currently showing in the browser.
@@ -23,25 +46,6 @@ def currentFlickrURL(kind):
   # key = 'Get key from Flickr'
   # secret = 'Get secret from Flickr'
   
-  
-  # The regex for extracting user and photo info.
-  infoRE = r'flickr\.com/photos/(.*)/(\d+)/?'
-
-  # Get the URL of the current page in either Safari or Chrome.
-  numSafari = app('System Events').processes[its.name == 'Safari'].count(each=k.item)
-  numChrome = app('System Events').processes[its.name == 'Google Chrome'].count(each=k.item)
-
-  if numSafari > 0:
-    thisURL = app('Safari').documents[0].URL.get()
-  elif numChrome > 0:
-    frontIndex = app('Google Chrome').windows[1].active_tab_index.get()
-    thisURL = app('Google Chrome').windows[1].tabs[frontIndex].URL.get()
-
-  # Extract the user and photo info from the URL.
-  info = re.findall(infoRE, thisURL)
-  if info == []:
-    return "Not a Flickr image page"
-  
   # Make sure we're asking for a legitimate kind.
   kind = kind.capitalize()
   kinds = ["Short", "Original", "Large", "Medium 640",
@@ -49,14 +53,20 @@ def currentFlickrURL(kind):
   if kind not in kinds:
     return "Not a legitimate kind of URL"
 
+  # Get the image ID.
+  try:
+    imageID = currentFlickrID()
+  except IndexError:
+    return "Not a Flickr image"
+  
   # Establish the connection with Flickr.
   flickr = FlickrAPI(api_key=key, secret=secret)
 
   # Get the URL.
   if kind == "Short":
-    return shorturl.url(photo_id = info[0][1])
+    return shorturl.url(photo_id = imageID)
   else:
-    etree = flickr.photos_getSizes(photo_id = info[0][1], format = 'etree')
+    etree = flickr.photos_getSizes(photo_id = imageID, format = 'etree')
     for i in etree[0]:
       if i.attrib['label'] == kind:
         return i.attrib['source']
@@ -67,4 +77,5 @@ def currentFlickrURL(kind):
 
 
 if __name__ == '__main__':
+  print currentFlickrID()
   print currentFlickrURL('Short')
