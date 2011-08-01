@@ -1,0 +1,25 @@
+#!/usr/bin/python
+
+import flickrapi
+import sys
+
+'''Run this to authorize another program you've registered with Flickr.
+The three arguments are: 
+
+1. The program's api key, which you get from Flickr.
+2. The program's api secret, which you get from Flickr.
+3. The program's permissions (read, write, or delete), which you determine.
+
+After running, there will be an entry in your ~/.flickr directory with a token
+that will allow the program to do what you authorized.'''
+
+api_key = sys.argv[1]
+api_secret = sys.argv[2]
+permission = sys.argv[3]
+
+flickr = flickrapi.FlickrAPI(api_key, api_secret)
+
+(token, frob) = flickr.get_token_part_one(perms=permission)
+if not token: raw_input("Press ENTER after you authorized this program")
+flickr.get_token_part_two((token, frob))
+
