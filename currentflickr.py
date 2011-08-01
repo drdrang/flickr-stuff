@@ -42,9 +42,9 @@ def currentFlickrURL(kind):
   Chrome browsers.'''
   
   # Flickr parameters
-  # fuser = 'Flickr username'
-  # key = 'Get key from Flickr'
-  # secret = 'Get secret from Flickr'
+  fuser = 'Flickr username'
+  key = 'Get key from Flickr'
+  secret = 'Get secret from Flickr'
   
   # Make sure we're asking for a legitimate kind.
   kind = kind.capitalize()
@@ -77,5 +77,4 @@ def currentFlickrURL(kind):
 
 
 if __name__ == '__main__':
-  print currentFlickrID()
   print currentFlickrURL('Short')
