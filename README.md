@@ -46,6 +46,10 @@ Near the top of currentflickr.py is a section of Flickr parameters:
 
 These must be customized with the appropriate username and API info.
 
+## Flickr.textexpander ##
+
+This is a plist of TextExpander shell snippets for getting various Flickr URLs of the image shown in the frontmost tab of the browser. The snippets use the currentflickr.py library, so it must be customized with the user's name and API credentials and installed where Python can find it. 
+
 
 [1]: http://www.bluem.net/en/mac/pashua/
 [2]: http://stuvel.eu/flickrapi
