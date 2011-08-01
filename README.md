@@ -21,11 +21,30 @@ snapflickr takes a snapshot of your screen (similar to the builtin ⇧⌘4), sav
 
 It requires [Carsten Blüm's Pashua application][1] and its accompanying Python library. The use is described in more detail [here][3].
 
+Near the top of snapflickr is a section of Flickr parameters:
+
+    # Flickr parameters
+    fuser = 'your Flickr username'
+    key = 'get your key from Flickr'
+    secret = 'get your secret from Flickr'
+    screenshotsID = 'the ID of the Flickr set'
+
+These must be customized with the appropriate username, API info, and Flickr set ID.
+
 ## currentflickr.py ##
 
 This is a Python library for getting certain types of URL for the Flickr image currently showing in your browser (works only for Safari and Chrome—sorry, Firefox users). In addition to the FlickrAPI library, it also requires the [appscript library][4], which allows Python to handle Apple Events (like AppleScript).
 
 I use the currentFlickrURL function to make TextExpander shell snippets that return the URLs for various sizes of an image and also to return an image's short Flickr URL (http://flic.kr/p/xxxxx).
+
+Near the top of currentflickr.py is a section of Flickr parameters:
+
+    # Flickr parameters
+    fuser = 'Flickr username'
+    key = 'Get key from Flickr'
+    secret = 'Get secret from Flickr'
+
+These must be customized with the appropriate username and API info.
 
 
 [1]: http://www.bluem.net/en/mac/pashua/
