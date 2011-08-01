@@ -1,0 +1,94 @@
+#!/usr/bin/python
+
+import Pashua
+from flickrapi import FlickrAPI
+import sys, os
+from subprocess import *
+import re
+
+# Local parameters
+extension = "jpg"
+localdir = os.environ['HOME'] + "/Desktop"
+
+# Flickr parameters
+fuser = 'your Flickr username'
+key = 'get your key from Flickr'
+secret = 'get your secret from Flickr'
+screenshotsID = 'the ID of the Flickr set'
+
+# Dialog box configuration
+conf = '''
+# Window properties
+*.title = Snapshot Flickr
+
+# File name text field properties
+fn.type = textfield
+fn.default = snap
+fn.width = 264
+fn.x = 94
+fn.y = 130
+fnl.type = text
+fnl.default = File name:
+fnl.x = 20
+fnl.y = 132
+
+# Description text field properties
+desc.type = textbox
+desc.width = 264
+desc.height = 72
+desc.x = 94
+desc.y = 40
+descl.type = text
+descl.default = Description:
+descl.x = 10
+descl.y = 95
+
+
+# Local files checkbox properties
+lf.type = checkbox
+lf.label = Local file only
+lf.x = 20
+lf.y = 5
+
+# Default button
+db.type = defaultbutton
+db.label = Snap
+
+# Cancel button
+cb.type = cancelbutton
+'''
+
+# Open the dialog box and get the input.
+dialog = Pashua.run(conf)
+if dialog['cb'] == '1':
+  sys.exit()
+
+# Go to the localdir.
+os.chdir(localdir)
+
+# Set the filename.
+fn =  '%s.%s' % (dialog['fn'], extension)
+
+# Capture a portion of the screen and save it to a file.
+Popen(["screencapture", "-iW", "-t", extension, fn], stdout=PIPE).communicate()
+
+
+# Unless this is just a local file...
+if dialog['lf'] != '1':
+  
+  # Upload the file.
+  flickr = FlickrAPI(api_key=key, secret=secret)
+  response = flickr.upload(filename=fn, title=dialog['fn'],\
+              description=dialog['desc'], is_public=1,\
+              format='etree')
+  
+  # Get the photo info from Flickr.
+  photoID = response.find('photoid').text
+  photoURL = 'http://www.flickr.com/photos/%s/%s/' % (fuser, photoID)
+  
+  # Add to the screenshots set.
+  flickr.photosets_addPhoto(photo_id = photoID, photoset_id = screenshotsID)
+  
+  # Open the photo page in the default browser.
+  Popen(['open', photoURL]).communicate()
+  
