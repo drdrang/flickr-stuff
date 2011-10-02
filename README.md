@@ -33,7 +33,7 @@ These must be customized with the appropriate username, API info, and Flickr set
 
 ## currentflickr.py ##
 
-This is a Python library for getting certain types of URL for the Flickr image currently showing in your browser (works only for Safari and Chrome—sorry, Firefox users). In addition to the FlickrAPI library, it also requires the [appscript library][4], which allows Python to handle Apple Events (like AppleScript).
+This is a Python library for getting the name or certain types of URL for the Flickr image currently showing in your browser (works only for Safari and Chrome—sorry, Firefox users). In addition to the FlickrAPI library, it also requires the [appscript library][4], which allows Python to handle Apple Events (like AppleScript).
 
 I use the currentFlickrURL function to make TextExpander shell snippets that return the URLs for various sizes of an image and also to return an image's short Flickr URL (http://flic.kr/p/xxxxx).
 
@@ -50,8 +50,15 @@ These must be customized with the appropriate username and API info.
 
 This is a plist of TextExpander shell snippets for getting various Flickr URLs of the image shown in the frontmost tab of the browser. The snippets use the currentflickr.py library, so it must be customized with the user's name and API credentials and installed where Python can find it. 
 
+## download-flickr-image ##
+
+A script that downloads the large version of the Flickr image currently showing in the browser window and saves it to the Desktop. The filename is the Flickr image title, with ".jpg" appended if necessary. This is intended to be called via FastScripts or a similar utility. It dings using the Glass sound if it succeeds and burps with the Basso sound if it fails.
+
+To play the sounds, the script requires the free [Play Sound utility][5] from Microcosm Software.
+
 
 [1]: http://www.bluem.net/en/mac/pashua/
 [2]: http://stuvel.eu/flickrapi
 [3]: http://www.leancrew.com/all-this/2011/07/screenshotupload-utility-now-with-flickr/
 [4]: http://appscript.sourceforge.net/
+[5]: http://microcosmsoftware.com/playsound/
