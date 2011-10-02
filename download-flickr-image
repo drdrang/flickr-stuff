@@ -1,0 +1,33 @@
+#!/usr/bin/python
+
+from urllib2 import urlopen
+from currentflickr import currentFlickrURL, currentFlickrTitle
+from os import environ
+from appscript import app
+
+# This script downloads the large version of the Flickr image
+# currently showing in the browser window and saves it to the
+# Desktop. The filename is the Flickr image title, with ".jpg"
+# appended if necessary.
+
+try:
+  # Get the large version of the image and its title.
+  name = currentFlickrTitle()
+  if name[-4:].lower() != '.jpg':
+    name += '.jpg'
+  image = urlopen(currentFlickrURL('Large')).read()
+
+  # Open a file for writing with the name of the image.
+  imgFile = open(environ['HOME'] + '/Desktop/' + name, 'w')
+
+  # Write the image and close the file.
+  imgFile.write(image)
+  imgFile.close()
+  app('Play Sound').play('Macintosh HD:System:Library:Sounds:Glass.aiff')
+
+except:
+  app('Play Sound').play('Macintosh HD:System:Library:Sounds:Basso.aiff')
+
+
+
+

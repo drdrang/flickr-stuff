@@ -28,6 +28,36 @@ def currentFlickrID():
   info = re.findall(infoRE, thisURL)
   return info[0][1]
   
+def currentFlickrTitle():
+  '''Return the title of the Flickr image currently showing in the browser.
+
+  The function works through Apple Events and supports only the Safari and
+  Chrome browsers.'''
+
+  # Flickr parameters
+  fuser = 'Flickr username'
+  key = 'Get key from Flickr'
+  secret = 'Get secret from Flickr'
+
+  # Get the image ID.
+  try:
+    imageID = currentFlickrID()
+  except IndexError:
+    return "Not a Flickr image"
+
+  # Establish the connection with Flickr.
+  flickr = FlickrAPI(api_key=key, secret=secret)
+
+  # Get the title.
+  etree = flickr.photos_getInfo(photo_id = imageID, format = 'etree')
+  for i in etree[0]:
+   if i.tag == 'title':
+     return i.text
+     break
+
+  # If the size wasn't found.
+  return "Title not found"
+
 
 def currentFlickrURL(kind):
   '''Return a URL for the Flickr image currently showing in the browser.
