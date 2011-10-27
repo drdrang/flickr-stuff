@@ -56,6 +56,20 @@ A script that downloads the large version of the Flickr image currently showing 
 
 To play the sounds, the script requires the free [Play Sound utility][5] from Microcosm Software.
 
+## up2flickr ##
+
+A script that uploads a list of images to Flickr. The title on Flickr is the file name minus the extension. The images are private by default but can be made public through a command line option.
+
+Near the top of up2flickr is a section of Flickr parameters:
+
+    # Flickr parameters
+    fuser = 'Flickr username'
+    key = 'Get key from Flickr'
+    secret = 'Get secret from Flickr'
+
+These must be customized with the appropriate username and API info.
+
+
 
 [1]: http://www.bluem.net/en/mac/pashua/
 [2]: http://stuvel.eu/flickrapi

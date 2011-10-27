@@ -1,0 +1,50 @@
+#!/usr/bin/python
+
+from flickrapi import FlickrAPI
+from os.path import basename, splitext
+import sys
+import getopt
+
+usage = """Usage: up2flickr [options] [files]
+
+Options:
+  -p   make the photos public
+  -h   show this help message
+
+Upload image files to Flickr. The images will be private to
+friends and family by default."""
+
+# Flickr parameters
+fuser = 'Flickr username'
+key = 'Get key from Flickr'
+secret = 'Get secret from Flickr'
+
+# Get the command line options.
+try:
+  options, filenames = getopt.getopt(sys.argv[1:], 'ph')
+except getopt.GetoptError, err:
+  print str(err)
+  sys.exit(2)
+
+# Set the option values.
+public = 0       # default
+for o, a in options:
+  if o == '-p':
+    public = 1
+  else:
+    print usage
+    sys.exit()
+
+# Upload the files on the command line.
+flickr = FlickrAPI(api_key=key, secret=secret)
+
+for fn in filenames:
+  print "Uploading %s..." % fn
+  t = splitext(basename(fn))[0]   # file name w/o extension
+  response = flickr.upload(filename=fn, title=t,\
+            is_public=public, format='etree')
+  photoID = response.find('photoid').text
+  photoURL = 'http://www.flickr.com/photos/%s/%s/' % (fuser, photoID)
+  print "  -> %s" % photoURL
+
+  
