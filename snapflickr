@@ -3,12 +3,13 @@
 import Pashua
 from flickrapi import FlickrAPI
 import sys, os
-from subprocess import *
+from subprocess import call
 import re
 
 # Local parameters
 extension = "jpg"
 localdir = os.environ['HOME'] + "/Desktop"
+tempfile = "temp.jpg"
 
 # Flickr parameters
 fuser = 'your Flickr username'
@@ -52,26 +53,26 @@ lf.y = 5
 
 # Default button
 db.type = defaultbutton
-db.label = Snap
+db.label = Rename
 
 # Cancel button
 cb.type = cancelbutton
 '''
+
+# Go to the localdir.
+os.chdir(localdir)
+
+# Capture a portion of the screen and save it to a temporary file.
+call(["screencapture", "-iW", "-t", extension, tempfile])
 
 # Open the dialog box and get the input.
 dialog = Pashua.run(conf)
 if dialog['cb'] == '1':
   sys.exit()
 
-# Go to the localdir.
-os.chdir(localdir)
-
-# Set the filename.
+# Rename the temporary file.
 fn =  '%s.%s' % (dialog['fn'], extension)
-
-# Capture a portion of the screen and save it to a file.
-Popen(["screencapture", "-iW", "-t", extension, fn], stdout=PIPE).communicate()
-
+call(["mv", tempfile, fn])
 
 # Unless this is just a local file...
 if dialog['lf'] != '1':
@@ -90,5 +91,5 @@ if dialog['lf'] != '1':
   flickr.photosets_addPhoto(photo_id = photoID, photoset_id = screenshotsID)
   
   # Open the photo page in the default browser.
-  Popen(['open', photoURL]).communicate()
+  call(['open', photoURL])
   
