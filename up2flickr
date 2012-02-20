@@ -45,6 +45,6 @@ for fn in filenames:
             is_public=public, format='etree')
   photoID = response.find('photoid').text
   photoURL = 'http://www.flickr.com/photos/%s/%s/' % (fuser, photoID)
-  print "  -> %s" % photoURL
+  print "  %s" % photoURL
 
   
