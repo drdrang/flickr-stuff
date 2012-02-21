@@ -15,9 +15,13 @@ getFlickrToken authorizes any program you've registered with Flickr (http://www.
 
 ## snapflickr ##
 
-snapflickr takes a snapshot of your screen (similar to the builtin ⇧⌘4), saves a copy to your Desktop, and uploads a copy to your Flickr account. You provide a file name and (optionally) a description before taking the snapshot.
+snapflickr takes a snapshot of your screen (similar to the builtin ⇧⌘4), saves a copy to your Desktop, and uploads a copy to your Flickr account.
+
+When snapflickr is run, it turns the cursor into a camera, ready to take a snapshot of any window (you can change it to take a snapshot of an arbitrary rectangle by pressing the spacebar). After the snapshot is taken, a window appears in which you provide a file name and (optionally) a description.
 
 ![snapflickr dialog box]( http://farm6.static.flickr.com/5074/5914101080_b6dc03beba_o.jpg)
+
+By default, the snapshot is uploaded to your Flickr account, but if you click the "Local file only" checkbox, there's no upload.
 
 It requires [Carsten Blüm's Pashua application][1] and its accompanying Python library. The use is described in more detail [here][3].
 
@@ -73,6 +77,6 @@ These must be customized with the appropriate username and API info.
 
 [1]: http://www.bluem.net/en/mac/pashua/
 [2]: http://stuvel.eu/flickrapi
-[3]: http://www.leancrew.com/all-this/2011/07/screenshotupload-utility-now-with-flickr/
+[3]: http://www.leancrew.com/all-this/2012/02/snapflickr-update/
 [4]: http://appscript.sourceforge.net/
 [5]: http://microcosmsoftware.com/playsound/
