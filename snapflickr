@@ -44,6 +44,16 @@ descl.default = Description:
 descl.x = 10
 descl.y = 95
 
+# Size radiobutton properties
+radio.type = radiobutton
+radio.label = Size of <img>:
+radio.option = Original
+radio.option = Large
+radio.option = Medium 640
+radio.option = Medium 500
+radio.default = Medium 640
+radio.x = 380
+radio.y = 50
 
 # Local files checkbox properties
 lf.type = checkbox
@@ -98,17 +108,19 @@ if dialog['lf'] != '1':
   # Open the photo page in the default browser.
   subprocess.call(['open', photoURL])
   
-  # Put an img element on the clipboard for the Medium 640 size of the image.
+  # Put an img element on the clipboard for the selected size of the image.
+  size = dialog['radio']
+  if size == 'Medium 500': size = 'Medium'
   flickr = FlickrAPI(api_key=key, secret=secret)
   etree = flickr.photos_getSizes(photo_id = photoID, format = 'etree')
   for i in etree[0]:
-    if i.attrib['label'] == 'Medium 640':
+    if i.attrib['label'] == size:
       tag = '<img src="%s" alt="%s" title="%s" />' %\
         (i.attrib['source'], dialog['fn'], dialog['fn'])
       subprocess.Popen('pbcopy', stdin=subprocess.PIPE).communicate(tag)
       sys.exit()
   
-  # If the Medium 640 size wasn't available.
+  # If the selected size wasn't available.
   tag = '<img src="%s" alt="%s" title="%s" />' %\
     ('size_not_found', dialog['fn'], dialog['fn'])
   subprocess.Popen('pbcopy', stdin=subprocess.PIPE).communicate(tag)
