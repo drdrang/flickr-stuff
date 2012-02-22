@@ -3,7 +3,7 @@
 import Pashua
 from flickrapi import FlickrAPI
 import sys, os
-from subprocess import call
+import subprocess
 import re
 
 # Local parameters
@@ -53,7 +53,7 @@ lf.y = 5
 
 # Default button
 db.type = defaultbutton
-db.label = Rename
+db.label = Save
 
 # Cancel button
 cb.type = cancelbutton
@@ -63,16 +63,21 @@ cb.type = cancelbutton
 os.chdir(localdir)
 
 # Capture a portion of the screen and save it to a temporary file.
-call(["screencapture", "-iW", "-t", extension, tempfile])
+subprocess.call(["screencapture", "-iW", "-t", extension, tempfile])
+
+# Exit if the user canceled the screencapture.
+if not os.access(tempfile, os.F_OK):
+  sys.exit()
 
 # Open the dialog box and get the input.
 dialog = Pashua.run(conf)
 if dialog['cb'] == '1':
+  os.remove(tempfile)
   sys.exit()
 
 # Rename the temporary file.
 fn =  '%s.%s' % (dialog['fn'], extension)
-call(["mv", tempfile, fn])
+subprocess.call(["mv", tempfile, fn])
 
 # Unless this is just a local file...
 if dialog['lf'] != '1':
@@ -91,5 +96,20 @@ if dialog['lf'] != '1':
   flickr.photosets_addPhoto(photo_id = photoID, photoset_id = screenshotsID)
   
   # Open the photo page in the default browser.
-  call(['open', photoURL])
+  subprocess.call(['open', photoURL])
+  
+  # Put an img element on the clipboard for the Medium 640 size of the image.
+  flickr = FlickrAPI(api_key=key, secret=secret)
+  etree = flickr.photos_getSizes(photo_id = photoID, format = 'etree')
+  for i in etree[0]:
+    if i.attrib['label'] == 'Medium 640':
+      tag = '<img src="%s" alt="%s" title="%s" />' %\
+        (i.attrib['source'], dialog['fn'], dialog['fn'])
+      subprocess.Popen('pbcopy', stdin=subprocess.PIPE).communicate(tag)
+      sys.exit()
+  
+  # If the Medium 640 size wasn't available.
+  tag = '<img src="%s" alt="%s" title="%s" />' %\
+    ('size_not_found', dialog['fn'], dialog['fn'])
+  subprocess.Popen('pbcopy', stdin=subprocess.PIPE).communicate(tag)
   
