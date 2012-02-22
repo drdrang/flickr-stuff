@@ -115,7 +115,7 @@ if dialog['lf'] != '1':
   etree = flickr.photos_getSizes(photo_id = photoID, format = 'etree')
   for i in etree[0]:
     if i.attrib['label'] == size:
-      tag = '<img src="%s" alt="%s" title="%s" />' %\
+      tag = '<img class="ss" src="%s" alt="%s" title="%s" />' %\
         (i.attrib['source'], dialog['fn'], dialog['fn'])
       subprocess.Popen('pbcopy', stdin=subprocess.PIPE).communicate(tag)
       sys.exit()
