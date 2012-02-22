@@ -19,9 +19,9 @@ snapflickr takes a snapshot of your screen (similar to the builtin ⇧⌘4), sav
 
 When snapflickr is run, it turns the cursor into a camera, ready to take a snapshot of any window (you can change it to take a snapshot of an arbitrary rectangle by pressing the spacebar). After the snapshot is taken, a window appears in which you provide a file name and (optionally) a description.
 
-![snapflickr dialog box]( http://farm6.static.flickr.com/5074/5914101080_b6dc03beba_o.jpg)
+![snapflickr dialog box](http://farm8.staticflickr.com/7065/6773443376_b9d6f3dd48_o.jpg)
 
-By default, the snapshot is uploaded to your Flickr account, but if you click the "Local file only" checkbox, there's no upload. If the image is uploaded to Flickr, its page is opened in the default browser and an `<img>` tag for the Medium 640 size is put on the clipboard.
+By default, the snapshot is uploaded to your Flickr account, but if you click the "Local file only" checkbox, there's no upload. If the image is uploaded to Flickr, its page is opened in the default browser and an `<img>` tag for the chosen size is put on the clipboard.
 
 It requires [Carsten Blüm's Pashua application][1] and its accompanying Python library. The use is described in more detail [here][3].
 
