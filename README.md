@@ -21,7 +21,7 @@ When snapflickr is run, it turns the cursor into a camera, ready to take a snaps
 
 ![snapflickr dialog box]( http://farm6.static.flickr.com/5074/5914101080_b6dc03beba_o.jpg)
 
-By default, the snapshot is uploaded to your Flickr account, but if you click the "Local file only" checkbox, there's no upload.
+By default, the snapshot is uploaded to your Flickr account, but if you click the "Local file only" checkbox, there's no upload. If the image is uploaded to Flickr, its page is opened in the default browser and an `<img>` tag for the Medium 640 size is put on the clipboard.
 
 It requires [Carsten Blüm's Pashua application][1] and its accompanying Python library. The use is described in more detail [here][3].
 
