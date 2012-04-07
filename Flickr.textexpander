@@ -23,7 +23,7 @@
 			<key>label</key>
 			<string>Flickr large image URL</string>
 			<key>lastUsed</key>
-			<date>2011-07-30T21:36:35Z</date>
+			<date>2012-02-22T04:44:59Z</date>
 			<key>modificationDate</key>
 			<date>2011-07-30T04:42:33Z</date>
 			<key>plainText</key>
@@ -37,7 +37,7 @@ sys.stdout.write(currentFlickrURL('Large'))
 			<key>snippetType</key>
 			<integer>3</integer>
 			<key>useCount</key>
-			<integer>9</integer>
+			<integer>10</integer>
 			<key>uuidString</key>
 			<string>5C1F2B90-C76B-4F98-BDF5-706630FCD74E</string>
 		</dict>
@@ -70,6 +70,36 @@ sys.stdout.write(currentFlickrURL('Small'))
 			<integer>9</integer>
 			<key>uuidString</key>
 			<string>7C44F6DB-E6CA-4C99-A3D3-4ED770234C37</string>
+		</dict>
+		<dict>
+			<key>abbreviation</key>
+			<string>;320</string>
+			<key>abbreviationMode</key>
+			<integer>0</integer>
+			<key>creationDate</key>
+			<date>2011-07-30T03:36:37Z</date>
+			<key>flags</key>
+			<integer>2</integer>
+			<key>label</key>
+			<string>Flickr small 320 image URL</string>
+			<key>lastUsed</key>
+			<date>2012-04-07T04:53:44Z</date>
+			<key>modificationDate</key>
+			<date>2012-04-07T04:53:03Z</date>
+			<key>plainText</key>
+			<string>#!/usr/bin/python
+
+import sys
+from currentflickr import currentFlickrURL
+
+sys.stdout.write(currentFlickrURL('Small 320'))
+</string>
+			<key>snippetType</key>
+			<integer>3</integer>
+			<key>useCount</key>
+			<integer>9</integer>
+			<key>uuidString</key>
+			<string>9B8423F4-996A-41E6-8318-288D58BAF282</string>
 		</dict>
 		<dict>
 			<key>abbreviation</key>
@@ -133,6 +163,36 @@ sys.stdout.write(currentFlickrURL('Square'))
 		</dict>
 		<dict>
 			<key>abbreviation</key>
+			<string>;150</string>
+			<key>abbreviationMode</key>
+			<integer>0</integer>
+			<key>creationDate</key>
+			<date>2011-07-30T03:36:37Z</date>
+			<key>flags</key>
+			<integer>2</integer>
+			<key>label</key>
+			<string>Flickr large square image URL</string>
+			<key>lastUsed</key>
+			<date>2012-04-07T04:53:51Z</date>
+			<key>modificationDate</key>
+			<date>2012-04-07T04:52:26Z</date>
+			<key>plainText</key>
+			<string>#!/usr/bin/python
+
+import sys
+from currentflickr import currentFlickrURL
+
+sys.stdout.write(currentFlickrURL('Large Square'))
+</string>
+			<key>snippetType</key>
+			<integer>3</integer>
+			<key>useCount</key>
+			<integer>9</integer>
+			<key>uuidString</key>
+			<string>15BE2269-1E66-4EB0-97FD-EA0B03E01876</string>
+		</dict>
+		<dict>
+			<key>abbreviation</key>
 			<string>;original</string>
 			<key>abbreviationMode</key>
 			<integer>0</integer>
@@ -143,7 +203,7 @@ sys.stdout.write(currentFlickrURL('Square'))
 			<key>label</key>
 			<string>Flickr original image URL</string>
 			<key>lastUsed</key>
-			<date>2011-08-01T01:05:19Z</date>
+			<date>2012-04-06T02:25:43Z</date>
 			<key>modificationDate</key>
 			<date>2011-07-30T04:42:53Z</date>
 			<key>plainText</key>
@@ -157,7 +217,7 @@ sys.stdout.write(currentFlickrURL('Original'))
 			<key>snippetType</key>
 			<integer>3</integer>
 			<key>useCount</key>
-			<integer>12</integer>
+			<integer>77</integer>
 			<key>uuidString</key>
 			<string>F1FC32A9-468F-4266-833B-03BF4899DC36</string>
 		</dict>
@@ -173,7 +233,7 @@ sys.stdout.write(currentFlickrURL('Original'))
 			<key>label</key>
 			<string>Flickr medium 640 image URL</string>
 			<key>lastUsed</key>
-			<date>2011-07-30T21:36:27Z</date>
+			<date>2012-04-07T04:16:40Z</date>
 			<key>modificationDate</key>
 			<date>2011-07-30T04:43:30Z</date>
 			<key>plainText</key>
@@ -187,9 +247,39 @@ sys.stdout.write(currentFlickrURL('Medium 640'))
 			<key>snippetType</key>
 			<integer>3</integer>
 			<key>useCount</key>
-			<integer>112</integer>
+			<integer>254</integer>
 			<key>uuidString</key>
 			<string>03D04AED-76CC-4D96-89DC-B08FD1D70856</string>
+		</dict>
+		<dict>
+			<key>abbreviation</key>
+			<string>;800</string>
+			<key>abbreviationMode</key>
+			<integer>0</integer>
+			<key>creationDate</key>
+			<date>2010-07-22T19:40:28Z</date>
+			<key>flags</key>
+			<integer>2</integer>
+			<key>label</key>
+			<string>Flickr medium 800 image URL</string>
+			<key>lastUsed</key>
+			<date>2012-04-07T04:53:59Z</date>
+			<key>modificationDate</key>
+			<date>2012-04-07T04:51:55Z</date>
+			<key>plainText</key>
+			<string>#!/usr/bin/python
+
+import sys
+from currentflickr import currentFlickrURL
+
+sys.stdout.write(currentFlickrURL('Medium 800'))
+</string>
+			<key>snippetType</key>
+			<integer>3</integer>
+			<key>useCount</key>
+			<integer>254</integer>
+			<key>uuidString</key>
+			<string>6D73F9A9-2B56-42DF-9579-0BF423BBBE0D</string>
 		</dict>
 		<dict>
 			<key>abbreviation</key>
@@ -203,7 +293,7 @@ sys.stdout.write(currentFlickrURL('Medium 640'))
 			<key>label</key>
 			<string>Flickr medium image URL</string>
 			<key>lastUsed</key>
-			<date>2011-08-01T01:18:42Z</date>
+			<date>2012-04-07T04:54:15Z</date>
 			<key>modificationDate</key>
 			<date>2011-07-30T04:43:12Z</date>
 			<key>plainText</key>
@@ -217,7 +307,7 @@ sys.stdout.write(currentFlickrURL('Medium'))
 			<key>snippetType</key>
 			<integer>3</integer>
 			<key>useCount</key>
-			<integer>121</integer>
+			<integer>140</integer>
 			<key>uuidString</key>
 			<string>F45CF6FA-93EE-42FB-B359-FB1462C87DE4</string>
 		</dict>
@@ -233,7 +323,7 @@ sys.stdout.write(currentFlickrURL('Medium'))
 			<key>label</key>
 			<string>flic.kr link</string>
 			<key>lastUsed</key>
-			<date>2011-08-01T01:18:20Z</date>
+			<date>2012-01-17T05:42:51Z</date>
 			<key>modificationDate</key>
 			<date>2011-08-01T01:17:29Z</date>
 			<key>plainText</key>
@@ -247,7 +337,7 @@ sys.stdout.write(currentFlickrURL('Short'))
 			<key>snippetType</key>
 			<integer>3</integer>
 			<key>useCount</key>
-			<integer>36</integer>
+			<integer>48</integer>
 			<key>uuidString</key>
 			<string>01A112FE-204F-475A-9CAB-198A3AFB77CC</string>
 		</dict>
