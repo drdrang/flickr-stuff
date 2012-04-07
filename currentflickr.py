@@ -61,15 +61,18 @@ def currentFlickrTitle():
 
 def currentFlickrURL(kind):
   '''Return a URL for the Flickr image currently showing in the browser.
-  
-  The string parameter "kind" can be either "Short" or one of the standard
-  Flickr image sizes: "Original", "Large", "Medium 640", "Medium", "Small",
-  "Thumbnail", or "Square". If it's Short, the function will return a
-  flic.kr URL for the image page. If it's one of the others, the function
-  will return the URL of the image of that size, if available.
-  
-  The function works through Apple Events and supports only the Safari and
-  Chrome browsers.'''
+
+  The string parameter "kind" can be either "Short" or one of the
+  standard Flickr image sizes: "Original", "Large", "Medium 800",
+  "Medium 640", "Medium", "Small 320", "Small", "Thumbnail", "Large
+  Square", or "Square". If it's Short, the function will return a
+  flic.kr URL for the image page. If it's one of the others, the
+  function will return the URL of the image of that size, if
+  available.
+
+  The function works through Apple Events and supports only the Safari
+  and Chrome browsers.'''
+
   
   # Flickr parameters
   fuser = 'Flickr username'
@@ -77,9 +80,10 @@ def currentFlickrURL(kind):
   secret = 'Get secret from Flickr'
   
   # Make sure we're asking for a legitimate kind.
-  kind = kind.capitalize()
-  kinds = ["Short", "Original", "Large", "Medium 640",
-           "Medium", "Small", "Thumbnail", "Square"]
+  kind = ' '.join([x.capitalize() for x in kind.split()])
+  kinds = ["Short", "Original", "Large", "Medium 800", "Medium 640",
+           "Medium", "Small 320", "Small",  "Thumbnail",
+           "Large Square", "Square"]
   if kind not in kinds:
     return "Not a legitimate kind of URL"
 
