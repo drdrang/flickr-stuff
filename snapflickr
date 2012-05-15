@@ -92,22 +92,22 @@ if dialog['cb'] == '1':
 fn =  '%s.%s' % (dialog['fn'], extension)
 subprocess.call(["mv", tempfile, fn])
 
+# Add a desktop background if it's a shadowed window screenshot.
+snap = Image.open(fn)
+if snap.mode == 'RGBA':
+  # Crop it to a more reasonable size, 
+  # and paste it over a solid-colored background.
+  cropbox = (margin[0],
+             margin[1],
+             snap.size[0]-margin[2],
+             snap.size[1]-margin[3])
+  snap = snap.crop(cropbox)
+  bg = Image.new('RGB', snap.size, bgcolor)
+  bg.paste(snap, None, snap)
+  bg.save(fn)
+
 # Unless this is just a local file...
 if dialog['lf'] != '1':
-  
-  # Add a desktop background if it's a shadowed window screenshot.
-  snap = Image.open(fn)
-  if snap.mode == 'RGBA':
-    # Crop it to a more reasonable size, 
-    # and paste it over a solid-colored background.
-    cropbox = (margin[0],
-               margin[1],
-               snap.size[0]-margin[2],
-               snap.size[1]-margin[3])
-    snap = snap.crop(cropbox)
-    bg = Image.new('RGB', snap.size, bgcolor)
-    bg.paste(snap, None, snap)
-    bg.save(fn)
   
   # Upload the file.
   flickr = FlickrAPI(api_key=key, secret=secret)
