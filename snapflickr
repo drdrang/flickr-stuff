@@ -2,14 +2,17 @@
 
 import Pashua
 from flickrapi import FlickrAPI
+import Image
 import sys, os
-from subprocess import call
+import subprocess
 import re
 
 # Local parameters
-extension = "jpg"
+extension = "png"
 localdir = os.environ['HOME'] + "/Desktop"
-tempfile = "temp.jpg"
+tempfile = "temp.png"
+bgcolor = (61, 101, 156)
+margin = (25, 5, 25, 35)
 
 # Flickr parameters
 fuser = 'your Flickr username'
@@ -44,6 +47,16 @@ descl.default = Description:
 descl.x = 10
 descl.y = 95
 
+# Size radiobutton properties
+radio.type = radiobutton
+radio.label = Size of <img>:
+radio.option = Original
+radio.option = Large
+radio.option = Medium 640
+radio.option = Medium 500
+radio.default = Medium 640
+radio.x = 380
+radio.y = 50
 
 # Local files checkbox properties
 lf.type = checkbox
@@ -53,7 +66,7 @@ lf.y = 5
 
 # Default button
 db.type = defaultbutton
-db.label = Rename
+db.label = Save
 
 # Cancel button
 cb.type = cancelbutton
@@ -63,16 +76,35 @@ cb.type = cancelbutton
 os.chdir(localdir)
 
 # Capture a portion of the screen and save it to a temporary file.
-call(["screencapture", "-iW", "-t", extension, tempfile])
+subprocess.call(["screencapture", "-iW", "-t", extension, tempfile])
+
+# Exit if the user canceled the screencapture.
+if not os.access(tempfile, os.F_OK):
+  sys.exit()
 
 # Open the dialog box and get the input.
 dialog = Pashua.run(conf)
 if dialog['cb'] == '1':
+  os.remove(tempfile)
   sys.exit()
 
 # Rename the temporary file.
 fn =  '%s.%s' % (dialog['fn'], extension)
-call(["mv", tempfile, fn])
+subprocess.call(["mv", tempfile, fn])
+
+# Add a desktop background if it's a shadowed window screenshot.
+snap = Image.open(fn)
+if snap.mode == 'RGBA':
+  # Crop it to a more reasonable size, 
+  # and paste it over a solid-colored background.
+  cropbox = (margin[0],
+             margin[1],
+             snap.size[0]-margin[2],
+             snap.size[1]-margin[3])
+  snap = snap.crop(cropbox)
+  bg = Image.new('RGB', snap.size, bgcolor)
+  bg.paste(snap, None, snap)
+  bg.save(fn)
 
 # Unless this is just a local file...
 if dialog['lf'] != '1':
@@ -91,5 +123,22 @@ if dialog['lf'] != '1':
   flickr.photosets_addPhoto(photo_id = photoID, photoset_id = screenshotsID)
   
   # Open the photo page in the default browser.
-  call(['open', photoURL])
+  subprocess.call(['open', photoURL])
+  
+  # Put an img element on the clipboard for the selected size of the image.
+  size = dialog['radio']
+  if size == 'Medium 500': size = 'Medium'
+  flickr = FlickrAPI(api_key=key, secret=secret)
+  etree = flickr.photos_getSizes(photo_id = photoID, format = 'etree')
+  for i in etree[0]:
+    if i.attrib['label'] == size:
+      tag = '<img class="ss" src="%s" alt="%s" title="%s" />' %\
+        (i.attrib['source'], dialog['fn'], dialog['fn'])
+      subprocess.Popen('pbcopy', stdin=subprocess.PIPE).communicate(tag)
+      sys.exit()
+  
+  # If the selected size wasn't available.
+  tag = '<img src="%s" alt="%s" title="%s" />' %\
+    ('size_not_found', dialog['fn'], dialog['fn'])
+  subprocess.Popen('pbcopy', stdin=subprocess.PIPE).communicate(tag)
   
