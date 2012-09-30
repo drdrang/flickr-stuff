@@ -4,6 +4,7 @@ from flickrapi import FlickrAPI
 from os.path import basename, splitext
 import sys
 import getopt
+from subprocess import call
 
 usage = """Usage: up2flickr [options] [files]
 
@@ -47,4 +48,4 @@ for fn in filenames:
   photoURL = 'http://www.flickr.com/photos/%s/%s/' % (fuser, photoID)
   print "  %s" % photoURL
 
-  
+call(['open', photoURL])
