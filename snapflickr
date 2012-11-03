@@ -9,7 +9,7 @@ import re
 
 # Local parameters
 extension = "png"
-localdir = os.environ['HOME'] + "/Desktop"
+localdir = os.environ['HOME'] + "/Pictures/Screenshots"
 tempfile = "temp.png"
 bgcolor = (61, 101, 156)
 margin = (25, 5, 25, 35)
