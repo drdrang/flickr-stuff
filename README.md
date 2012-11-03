@@ -15,7 +15,7 @@ getFlickrToken authorizes any program you've registered with Flickr (http://www.
 
 ## snapflickr ##
 
-snapflickr takes a snapshot of your screen (similar to the builtin ⇧⌘4), saves a copy to your Desktop, and uploads a copy to your Flickr account.
+snapflickr takes a snapshot of your screen (similar to the builtin ⇧⌘4), saves a copy to your ~/Pictures/Screenshots folder (which you must create first), and uploads a copy to your Flickr account.
 
 When snapflickr is run, it turns the cursor into a camera, ready to take a snapshot of any window (you can change it to take a snapshot of an arbitrary rectangle by pressing the spacebar). After the snapshot is taken, a window appears in which you provide a file name and (optionally) a description.
 
