@@ -1,38 +1,31 @@
 #!/usr/bin/python
 
 from flickrapi import FlickrAPI, shorturl
-from appscript import app, its, k
+from applescript import asrun
 import re
 
 def currentFlickrID():
   '''Return the ID for the Flickr image currently showing in the browser.
-  
-  The function works through Apple Events and supports only the Safari and
-  Chrome browsers. It will generate an IndexError if the frontmost tab of
-  the browser isn't showing a Flickr image.'''
-  
+
+  The function works through Apple Events and supports only the Safari
+  browser. It will generate an IndexError if the frontmost tab of the
+  browser isn't showing a Flickr image.'''
+
   # The regex for extracting user and photo info.
   infoRE = r'flickr\.com/photos/(.*)/(\d+)/?'
 
-  # Get the URL of the current page in either Safari or Chrome.
-  numSafari = app('System Events').processes[its.name == 'Safari'].count(each=k.item)
-  numChrome = app('System Events').processes[its.name == 'Google Chrome'].count(each=k.item)
-
-  if numSafari > 0:
-    thisURL = app('Safari').documents[0].URL.get()
-  elif numChrome > 0:
-    frontIndex = app('Google Chrome').windows[1].active_tab_index.get()
-    thisURL = app('Google Chrome').windows[1].tabs[frontIndex].URL.get()
+  # Get the URL of the current page in either Safari.
+  thisURL = asrun('tell application "Safari" to get the URL of the front document')
 
   # Extract the user and photo info from the URL.
   info = re.findall(infoRE, thisURL)
   return info[0][1]
-  
+
 def currentFlickrTitle():
   '''Return the title of the Flickr image currently showing in the browser.
 
-  The function works through Apple Events and supports only the Safari and
-  Chrome browsers.'''
+  The function works through Apple Events and supports only the Safari
+  browser.'''
 
   # Flickr parameters
   fuser = 'Flickr username'
@@ -71,14 +64,14 @@ def currentFlickrURL(kind):
   available.
 
   The function works through Apple Events and supports only the Safari
-  and Chrome browsers.'''
+  browser.'''
 
-  
+
   # Flickr parameters
   fuser = 'Flickr username'
   key = 'Get key from Flickr'
   secret = 'Get secret from Flickr'
-  
+
   # Make sure we're asking for a legitimate kind.
   kind = ' '.join([x.capitalize() for x in kind.split()])
   kinds = ["Short", "Original", "Large", "Medium 800", "Medium 640",
@@ -92,7 +85,7 @@ def currentFlickrURL(kind):
     imageID = currentFlickrID()
   except IndexError:
     return "Not a Flickr image"
-  
+
   # Establish the connection with Flickr.
   flickr = FlickrAPI(api_key=key, secret=secret)
 
@@ -105,7 +98,7 @@ def currentFlickrURL(kind):
       if i.attrib['label'] == kind:
         return i.attrib['source']
         break
-  
+
     # If the size wasn't found.
     return "Size not found"
 
