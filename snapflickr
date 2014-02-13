@@ -65,9 +65,9 @@ lf.label = Local file only
 lf.x = 20
 lf.y = 5
 
-# Pallette checkbox properties
+# Palette checkbox properties
 pl.type = checkbox
-pl.label = Pallette window
+pl.label = Palette window
 pl.x = 140
 pl.y = 5
 
