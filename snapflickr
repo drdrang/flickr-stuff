@@ -122,7 +122,7 @@ if snap.mode == 'RGBA':
 impbcopy = os.environ['HOME'] + '/Dropbox/bin/impbcopy'
 subprocess.call([impbcopy, fn])
 
-# Unless this is just for the clipboard...
+# Unless this is just a local file...
 if dialog['lf'] != '1':
   
   # Upload the file.
