@@ -117,8 +117,12 @@ if snap.mode == 'RGBA':
   bg = Image.new('RGB', snap.size, bgcolor)
   bg.paste(snap, None, snap)
   bg.save(fn)
+  
+# Put the image on the clipboard.
+impbcopy = os.environ['HOME'] + '/Dropbox/bin/impbcopy'
+subprocess.call([impbcopy, fn])
 
-# Unless this is just a local file...
+# Unless this is just for the clipboard...
 if dialog['lf'] != '1':
   
   # Upload the file.
