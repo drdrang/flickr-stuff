@@ -23,9 +23,9 @@ When snapflickr is run, it turns the cursor into a camera, ready to take a snaps
 
 By default, the snapshot is uploaded to your Flickr account, but if you click the "Local file only" checkbox, there's no upload. If the image is uploaded to Flickr, its page is opened in the default browser and an `<img>` tag for the chosen size is put on the clipboard.
 
-It requires [Carsten Blüm's Pashua application][1] and its accompanying Python library. The use is described in more detail [here][3]. It also requires the [Python Imaging Library][6] to add a desktop background color to window screenshots.
+It requires [Carsten Blüm's Pashua application][1] and its accompanying Python library. The use is described in more detail [here][3]. It also requires the [Python Imaging Library][6] to add border around window screenshots. The border is set to 16 pixels and the standard Solid Aqua Dark Blue color from the Desktop system preference. These can be changed in the local parameters section at the top of the file.
 
-Near the top of snapflickr is a section of Flickr parameters:
+Also near the top of snapflickr is a section of Flickr parameters:
 
     # Flickr parameters
     fuser = 'your Flickr username'

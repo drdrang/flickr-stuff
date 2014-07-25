@@ -13,7 +13,8 @@ localdir = os.environ['HOME'] + "/Pictures/Screenshots"
 tempfile = "temp.png"
 bgcolor = (61, 101, 156)
 bigshadow = (25, 5, 25, 35)
-smallshadow = (5, 0, 5, 10)
+smallshadow = (0, 0, 0, 0)
+border = 16
 
 # Flickr parameters
 fuser = 'your Flickr username'
@@ -65,11 +66,12 @@ lf.label = Local file only
 lf.x = 20
 lf.y = 5
 
-# Palette checkbox properties
-pl.type = checkbox
-pl.label = Palette window
-pl.x = 140
-pl.y = 5
+# Border checkbox properties
+bd.type = checkbox
+bd.label = Background border
+bd.x = 140
+bd.y = 5
+bd.default = 1
 
 # Default button
 db.type = defaultbutton
@@ -83,7 +85,7 @@ cb.type = cancelbutton
 os.chdir(localdir)
 
 # Capture a portion of the screen and save it to a temporary file.
-subprocess.call(["screencapture", "-iW", "-t", extension, tempfile])
+subprocess.call(["screencapture", "-ioW", "-t", extension, tempfile])
 
 # Exit if the user canceled the screencapture.
 if not os.access(tempfile, os.F_OK):
@@ -99,30 +101,20 @@ if dialog['cb'] == '1':
 fn =  '%s.%s' % (dialog['fn'], extension)
 subprocess.call(["mv", tempfile, fn])
 
-# Add a desktop background if it's a shadowed window screenshot.
+# Add a desktop background border if asked for.
 snap = Image.open(fn)
-if snap.mode == 'RGBA':
-  # Margins depend on whether the window is a pallette.
-  if dialog['pl'] == '1':
-    margin = smallshadow
-  else:
-    margin = bigshadow
-  # Crop it to a more reasonable size, 
-  # and paste it over a solid-colored background.
-  cropbox = (margin[0],
-             margin[1],
-             snap.size[0]-margin[2],
-             snap.size[1]-margin[3])
-  snap = snap.crop(cropbox)
-  bg = Image.new('RGB', snap.size, bgcolor)
-  bg.paste(snap, None, snap)
+if dialog['bd'] == '1':
+  # Make a solid-colored background bigger than the screenshot.
+  snapsize = tuple([ x + 2*border for x in snap.size ])
+  bg = Image.new('RGB', snapsize, bgcolor)
+  bg.paste(snap, (border, border))
   bg.save(fn)
   
 # Put the image on the clipboard.
 impbcopy = os.environ['HOME'] + '/Dropbox/bin/impbcopy'
 subprocess.call([impbcopy, fn])
 
-# Unless this is just a local file...
+# Unless this is just for the clipboard...
 if dialog['lf'] != '1':
   
   # Upload the file.
@@ -157,4 +149,3 @@ if dialog['lf'] != '1':
   tag = '<img src="%s" alt="%s" title="%s" />' %\
     ('size_not_found', dialog['fn'], dialog['fn'])
   subprocess.Popen('pbcopy', stdin=subprocess.PIPE).communicate(tag)
-  
