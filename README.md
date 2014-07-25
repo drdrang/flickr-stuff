@@ -19,7 +19,7 @@ snapflickr takes a snapshot of your screen (similar to the builtin ⇧⌘4), sav
 
 When snapflickr is run, it turns the cursor into a camera, ready to take a snapshot of any window (you can change it to take a snapshot of an arbitrary rectangle by pressing the spacebar). After the snapshot is taken, a window appears in which you provide a file name and (optionally) a description.
 
-![snapflickr dialog box](http://farm8.staticflickr.com/7065/6773443376_b9d6f3dd48_o.jpg)
+![snapflickr dialog box](https://farm3.staticflickr.com/2936/14551651529_ed08dd5631_o.png)
 
 By default, the snapshot is uploaded to your Flickr account, but if you click the "Local file only" checkbox, there's no upload. If the image is uploaded to Flickr, its page is opened in the default browser and an `<img>` tag for the chosen size is put on the clipboard.
 
